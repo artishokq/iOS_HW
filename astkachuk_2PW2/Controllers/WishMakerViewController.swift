@@ -60,6 +60,7 @@ final class WishMakerViewController: UIViewController {
         wishMakerView.getRandomColorButton().addTarget(self, action: #selector(changeToRandomColor), for: .touchUpInside)
         wishMakerView.getHexColorButton().addTarget(self, action: #selector(chanheToHexColor), for: .touchUpInside)
         wishMakerView.getHideSlidersButton().addTarget(self, action: #selector(slidersVisibility), for: .touchUpInside)
+        wishMakerView.getAddWishButton().addTarget(self, action: #selector(addWishButtonPressed), for: .touchUpInside)
     }
     
     // MARK: - Background Update
@@ -141,5 +142,10 @@ final class WishMakerViewController: UIViewController {
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc
+    private func addWishButtonPressed() {
+        // this will be done later!
     }
 }

@@ -15,31 +15,38 @@ final class WishMakerView: UIView {
         static let sliderMax: Double = 1.0
         
         static let stackRadius: CGFloat = 20.0
-        static let stackBottomPadding: Double = 20.0
+        static let stackBottomPadding: Double = 10.0
         static let stackLeadingPadding: Double = 20.0
         static let stackBackgroundColor: UIColor = .white
         static let stackSpace: CGFloat = 10.0
         
-        static let buttonHeight: Double = 60.0
-        static let buttonWidth: Double = 200.0
+        static let buttonHeight: Double = 45.0
         static let buttonVerticalSpacing: Double = 10.0
         static let buttonHorizontalSpacing: Double = 5.0
         static let buttonLeadingPadding: Double = 20.0
+        static let buttonTrailingPadding: Double = 20.0
+        static let buttonBottomPanding: Double = 20.0
         static let buttonFontSize: CGFloat = 18.0
         static let buttonCornerRadius: CGFloat = 10.0
         static let backgroundButtonColor: UIColor = .white
         static let titleOnBackgroundColor: UIColor = .black
+        static let addWishButtonText: String = "Добавить желание"
+        static let randomColorButtonText: String = "Случайный цвет"
+        static let hexColorButtonText: String = "Введите Hex-код"
+        static let hideSlidersButtonText: String = "Скрыть слайдеры"
         
         static let titleTopPadding: Double = 30.0
         static let titleLeadingPadding: Double = 20.0
         static let titleTextColor: UIColor = .white
         static let titleFontSize: CGFloat = 32
+        static let titleText: String = "Wish Maker"
         
         static let descriptionTopPadding: Double = 20.0
         static let descriptionLeadingPadding: Double = 20.0
         static let descriptionTrailingPadding: Double = 20.0
         static let descriptionTextColor: UIColor = .white
         static let descriptionFontSize: CGFloat = 20
+        static let descriptionText: String = "Можно изменить цвет фона используя слайдеры, кнопку рандомного цвета или ввести HEX-код. Также возможно скрыть слайдеры."
     }
     
     // MARK: - Fields
@@ -50,6 +57,7 @@ final class WishMakerView: UIView {
     private let hideSlidersButton: UIButton = UIButton(type: .system)
     private let randomColorButton: UIButton = UIButton(type: .system)
     private let hexColorButton: UIButton = UIButton(type: .system)
+    private let addWishButton: UIButton = UIButton(type: .system)
     
     private let sliderRed = CustomSliderView(title: "Red", min: Constants.sliderMin, max: Constants.sliderMax)
     private let sliderGreen = CustomSliderView(title: "Green", min: Constants.sliderMin, max: Constants.sliderMax)
@@ -70,13 +78,16 @@ final class WishMakerView: UIView {
     private func configureUI() {
         configureTitle()
         configureDescription()
+        configureAddWishButton()
         configureSliders()
-        configureButtons()
+        configureRandomColorButton()
+        configureHexColorButton()
+        configureHideSlidersButton()
     }
     
     private func configureTitle() {
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.text = "Wish Maker"
+        titleView.text = Constants.titleText
         titleView.textColor = Constants.titleTextColor
         titleView.font = UIFont.boldSystemFont(ofSize: Constants.titleFontSize)
         titleView.textAlignment = .center
@@ -88,7 +99,7 @@ final class WishMakerView: UIView {
     }
     
     private func configureDescription() {
-        descriptionView.text = "Можно изменить цвет фона используя слайдеры, кнопку рандомного цвета или ввести HEX-код. Также возможно скрыть слайдеры."
+        descriptionView.text = Constants.descriptionText
         descriptionView.textColor = Constants.descriptionTextColor
         descriptionView.font = UIFont.systemFont(ofSize: Constants.descriptionFontSize)
         descriptionView.textAlignment = .justified
@@ -100,6 +111,21 @@ final class WishMakerView: UIView {
         descriptionView.pinTop(to: titleView.bottomAnchor, Constants.descriptionTopPadding)
         descriptionView.pinLeft(to: self, Constants.descriptionLeadingPadding)
         descriptionView.pinRight(to: self, Constants.descriptionTrailingPadding)
+    }
+    
+    private func configureAddWishButton() {
+        addWishButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(addWishButton)
+        addWishButton.backgroundColor = Constants.backgroundButtonColor
+        addWishButton.setTitleColor(Constants.titleOnBackgroundColor, for: .normal)
+        addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonFontSize)
+        addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
+        addWishButton.layer.cornerRadius = Constants.buttonCornerRadius
+        
+        addWishButton.pinLeft(to: self, Constants.buttonLeadingPadding)
+        addWishButton.pinRight(to: self, Constants.buttonTrailingPadding)
+        addWishButton.setHeight(Constants.buttonHeight)
+        addWishButton.pinBottom(to: safeAreaLayoutGuide.bottomAnchor, Constants.buttonBottomPanding)
     }
     
     private func configureSliders() {
@@ -118,12 +144,11 @@ final class WishMakerView: UIView {
         
         slidersStack.pinLeft(to: self, Constants.stackLeadingPadding)
         slidersStack.pinRight(to: self, Constants.stackLeadingPadding)
-        slidersStack.pinBottom(to: safeAreaLayoutGuide.bottomAnchor, Constants.stackBottomPadding)
+        slidersStack.pinBottom(to: addWishButton.topAnchor, Constants.stackBottomPadding)
     }
     
-    private func configureButtons() {
-        // Кнопка случайного цвета
-        randomColorButton.setTitle("Случайный цвет", for: .normal)
+    private func configureRandomColorButton() {
+        randomColorButton.setTitle(Constants.randomColorButtonText, for: .normal)
         randomColorButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonFontSize)
         randomColorButton.backgroundColor = Constants.backgroundButtonColor
         randomColorButton.setTitleColor(Constants.titleOnBackgroundColor, for: .normal)
@@ -135,9 +160,10 @@ final class WishMakerView: UIView {
         randomColorButton.pinLeft(to: self, Constants.buttonLeadingPadding)
         randomColorButton.setHeight(mode: .equal, Constants.buttonHeight)
         randomColorButton.pinBottom(to: slidersStack.topAnchor, Constants.buttonVerticalSpacing)
-        
-        // Кнопка ввода hex-кода
-        hexColorButton.setTitle("Введите Hex-код", for: .normal)
+    }
+    
+    private func configureHexColorButton() {
+        hexColorButton.setTitle(Constants.hexColorButtonText, for: .normal)
         hexColorButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonFontSize)
         hexColorButton.backgroundColor = Constants.backgroundButtonColor
         hexColorButton.setTitleColor(Constants.titleOnBackgroundColor, for: .normal)
@@ -146,12 +172,13 @@ final class WishMakerView: UIView {
         
         addSubview(hexColorButton)
         hexColorButton.pinLeft(to: centerXAnchor, Constants.buttonHorizontalSpacing)
-        hexColorButton.pinRight(to: self, Constants.buttonLeadingPadding)
+        hexColorButton.pinRight(to: self, Constants.buttonTrailingPadding)
         hexColorButton.setHeight(mode: .equal, Constants.buttonHeight)
         hexColorButton.pinBottom(to: slidersStack.topAnchor, Constants.buttonVerticalSpacing)
-        
-        // Кнопка скрытия слайдеров
-        hideSlidersButton.setTitle("Скрыть слайдеры", for: .normal)
+    }
+    
+    private func configureHideSlidersButton() {
+        hideSlidersButton.setTitle(Constants.hideSlidersButtonText, for: .normal)
         hideSlidersButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonFontSize)
         hideSlidersButton.backgroundColor = Constants.backgroundButtonColor
         hideSlidersButton.setTitleColor(Constants.titleOnBackgroundColor, for: .normal)
@@ -193,5 +220,9 @@ final class WishMakerView: UIView {
     
     func getHexColorButton() -> UIButton {
         return hexColorButton
+    }
+    
+    func getAddWishButton() -> UIButton {
+        return addWishButton
     }
 }

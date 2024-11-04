@@ -12,6 +12,7 @@ final class TableView: UITableView {
     enum Constants {
         static let tableCornerRadius: CGFloat = 20.0
         static let tableOffset: Double = 20.0
+        static let tableBackgroundColor: UIColor = UIColor(hexString: "#65281d") ?? .red
     }
     
     // MARK: - Initialization
@@ -27,7 +28,7 @@ final class TableView: UITableView {
     
     // MARK: - UI Configuration
     private func configureTable() {
-        backgroundColor = .red
+        backgroundColor = Constants.tableBackgroundColor
         separatorStyle = .none
         layer.cornerRadius = Constants.tableCornerRadius
     }

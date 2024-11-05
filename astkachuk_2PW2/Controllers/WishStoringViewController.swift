@@ -97,6 +97,16 @@ extension WishStoringViewController: UITableViewDataSource {
         }
     }
     
+    // Удаление желаний
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete && indexPath.section == 1 {
+            wishArray.remove(at: indexPath.row)
+            saveWishes()
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     @objc private func didTapAddButton() {
         guard let addCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddWishCell else { return }
         guard let wishText = addCell.getWishTextView().text, !wishText.isEmpty else { return }

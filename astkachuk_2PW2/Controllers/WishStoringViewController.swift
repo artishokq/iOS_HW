@@ -8,12 +8,14 @@
 import UIKit
 
 final class WishStoringViewController: UIViewController {
-    private var wishArray: [String] = ["I wish to add cells to the table"]
+    private var wishArray: [String] = []
+    private let defaults = UserDefaults.standard
     
     // MARK: - Constants
     private enum Constants {
         static let numberOfSections = 2
         static let backgroundColor: UIColor = UIColor(hexString: "#caced8") ?? .white
+        static let wishesKey = "savedWishes"
     }
     
     // MARK: - Properties
@@ -22,6 +24,7 @@ final class WishStoringViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadWishes()
         configureTableView()
     }
     
@@ -36,6 +39,18 @@ final class WishStoringViewController: UIViewController {
         
         tableView.register(WrittenWishCell.self, forCellReuseIdentifier: WrittenWishCell.reuseId)
         tableView.register(AddWishCell.self, forCellReuseIdentifier: AddWishCell.reuseId)
+    }
+    
+    private func loadWishes() {
+        if let savedWishes = defaults.array(forKey: Constants.wishesKey) as? [String] {
+            wishArray = savedWishes
+        } else {
+            wishArray = []
+        }
+    }
+    
+    private func saveWishes() {
+        defaults.set(wishArray, forKey: Constants.wishesKey)
     }
 }
 
@@ -88,6 +103,7 @@ extension WishStoringViewController: UITableViewDataSource {
         
         wishArray.append(wishText)
         addCell.getWishTextView().text = ""
+        saveWishes()
         tableView.reloadData()
     }
 }

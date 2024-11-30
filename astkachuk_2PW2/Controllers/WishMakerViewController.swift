@@ -61,6 +61,7 @@ final class WishMakerViewController: UIViewController {
         wishMakerView.getHexColorButton().addTarget(self, action: #selector(chanheToHexColor), for: .touchUpInside)
         wishMakerView.getHideSlidersButton().addTarget(self, action: #selector(slidersVisibility), for: .touchUpInside)
         wishMakerView.getAddWishButton().addTarget(self, action: #selector(addWishButtonPressed), for: .touchUpInside)
+        wishMakerView.getScheduleWishesButton().addTarget(self, action: #selector(scheduleWishButtonPressed), for: .touchUpInside)
     }
     
     // MARK: - Background Update
@@ -153,5 +154,11 @@ final class WishMakerViewController: UIViewController {
     @objc
     private func addWishButtonPressed() {
         present(WishStoringViewController(), animated: true)
+    }
+    
+    @objc
+    private func scheduleWishButtonPressed() {
+        let vc = WishCalendarViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

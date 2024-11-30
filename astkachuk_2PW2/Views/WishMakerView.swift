@@ -272,4 +272,8 @@ final class WishMakerView: UIView {
     func getAddWishButton() -> UIButton {
         return addWishButton
     }
+    
+    func getScheduleWishesButton() -> UIButton {
+        return scheduleWishesButton
+    }
 }

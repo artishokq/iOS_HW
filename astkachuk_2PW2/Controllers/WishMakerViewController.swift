@@ -66,6 +66,12 @@ final class WishMakerViewController: UIViewController {
     // MARK: - Background Update
     private func updateBackgroundColor() {
         view.backgroundColor = colorModel.getColor()
+        // If background color changes, button's title color changes too
+        updateButtonsTitleColor()
+    }
+    
+    private func updateButtonsTitleColor() {
+        wishMakerView.setColor(colorModel.getColor())
     }
     
     // MARK: - Button Actions

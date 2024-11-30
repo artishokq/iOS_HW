@@ -63,6 +63,12 @@ final class WishMakerView: UIView {
     private let addWishButton: UIButton = UIButton(type: .system)
     private let scheduleWishesButton: UIButton = UIButton(type: .system)
     
+    private var currentColor: UIColor = .white {
+        didSet {
+            updateUIColors()
+        }
+    }
+    
     private let sliderRed = CustomSliderView(title: "Red", min: Constants.sliderMin, max: Constants.sliderMax)
     private let sliderGreen = CustomSliderView(title: "Green", min: Constants.sliderMin, max: Constants.sliderMax)
     private let sliderBlue = CustomSliderView(title: "Blue", min: Constants.sliderMin, max: Constants.sliderMax)
@@ -220,6 +226,15 @@ final class WishMakerView: UIView {
         hideSlidersButton.pinBottom(to: randomColorButton.topAnchor, Constants.buttonVerticalSpacing)
     }
     
+    private func updateUIColors() {
+        // Update button title colors
+        addWishButton.setTitleColor(currentColor, for: .normal)
+        scheduleWishesButton.setTitleColor(currentColor, for: .normal)
+        randomColorButton.setTitleColor(currentColor, for: .normal)
+        hexColorButton.setTitleColor(currentColor, for: .normal)
+        hideSlidersButton.setTitleColor(currentColor, for: .normal)
+    }
+    
     // MARK: - Public Methods for Access
     func getSliderRed() -> CustomSliderView {
         return sliderRed
@@ -235,6 +250,10 @@ final class WishMakerView: UIView {
     
     func getSlidersStack() -> UIStackView {
         return slidersStack
+    }
+    
+    func setColor(_ color: UIColor) {
+        currentColor = color
     }
     
     // MARK: - Button Access

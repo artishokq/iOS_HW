@@ -31,6 +31,7 @@ final class WishMakerView: UIView {
         static let backgroundButtonColor: UIColor = .white
         static let titleOnBackgroundColor: UIColor = .black
         static let addWishButtonText: String = "Добавить желание"
+        static let scheduleWishesButtonText: String = "Планировать исполнения желаний"
         static let randomColorButtonText: String = "Случайный цвет"
         static let hexColorButtonText: String = "Введите Hex-код"
         static let hideSlidersButtonText: String = "Скрыть слайдеры"
@@ -52,12 +53,15 @@ final class WishMakerView: UIView {
     // MARK: - Fields
     private let titleView: UILabel = UILabel()
     private let descriptionView: UILabel = UILabel()
+    
     private let slidersStack: UIStackView = UIStackView()
+    private let actionStack: UIStackView = UIStackView()
     
     private let hideSlidersButton: UIButton = UIButton(type: .system)
     private let randomColorButton: UIButton = UIButton(type: .system)
     private let hexColorButton: UIButton = UIButton(type: .system)
     private let addWishButton: UIButton = UIButton(type: .system)
+    private let scheduleWishesButton: UIButton = UIButton(type: .system)
     
     private let sliderRed = CustomSliderView(title: "Red", min: Constants.sliderMin, max: Constants.sliderMax)
     private let sliderGreen = CustomSliderView(title: "Green", min: Constants.sliderMin, max: Constants.sliderMax)
@@ -78,7 +82,7 @@ final class WishMakerView: UIView {
     private func configureUI() {
         configureTitle()
         configureDescription()
-        configureAddWishButton()
+        configureActionStack()
         configureSliders()
         configureRandomColorButton()
         configureHexColorButton()
@@ -115,17 +119,41 @@ final class WishMakerView: UIView {
     
     private func configureAddWishButton() {
         addWishButton.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(addWishButton)
         addWishButton.backgroundColor = Constants.backgroundButtonColor
         addWishButton.setTitleColor(Constants.titleOnBackgroundColor, for: .normal)
         addWishButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonFontSize)
         addWishButton.setTitle(Constants.addWishButtonText, for: .normal)
         addWishButton.layer.cornerRadius = Constants.buttonCornerRadius
         
-        addWishButton.pinLeft(to: self, Constants.buttonLeadingPadding)
-        addWishButton.pinRight(to: self, Constants.buttonTrailingPadding)
         addWishButton.setHeight(Constants.buttonHeight)
-        addWishButton.pinBottom(to: safeAreaLayoutGuide.bottomAnchor, Constants.buttonBottomPanding)
+    }
+    
+    private func configureScheduleWishesButton() {
+        scheduleWishesButton.translatesAutoresizingMaskIntoConstraints = false
+        scheduleWishesButton.backgroundColor = Constants.backgroundButtonColor
+        scheduleWishesButton.setTitleColor(Constants.titleOnBackgroundColor, for: .normal)
+        scheduleWishesButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonFontSize)
+        scheduleWishesButton.setTitle(Constants.scheduleWishesButtonText, for: .normal)
+        scheduleWishesButton.layer.cornerRadius = Constants.buttonCornerRadius
+        
+        scheduleWishesButton.setHeight(Constants.buttonHeight)
+    }
+    
+    private func configureActionStack() {
+        actionStack.translatesAutoresizingMaskIntoConstraints = false
+        actionStack.axis = .vertical
+        actionStack.spacing = Constants.stackSpace
+        addSubview(actionStack)
+        
+        actionStack.addArrangedSubview(scheduleWishesButton)
+        actionStack.addArrangedSubview(addWishButton)
+        
+        configureScheduleWishesButton()
+        configureAddWishButton()
+        
+        actionStack.pinLeft(to: self, Constants.stackLeadingPadding)
+        actionStack.pinRight(to: self, Constants.stackLeadingPadding)
+        actionStack.pinBottom(to: safeAreaLayoutGuide.bottomAnchor, Constants.stackBottomPadding)
     }
     
     private func configureSliders() {
@@ -144,7 +172,7 @@ final class WishMakerView: UIView {
         
         slidersStack.pinLeft(to: self, Constants.stackLeadingPadding)
         slidersStack.pinRight(to: self, Constants.stackLeadingPadding)
-        slidersStack.pinBottom(to: addWishButton.topAnchor, Constants.stackBottomPadding)
+        slidersStack.pinBottom(to: actionStack.topAnchor, Constants.stackBottomPadding)
     }
     
     private func configureRandomColorButton() {

@@ -5,11 +5,15 @@
 //  Created by Artem Tkachuk on 30.11.2024.
 //
 
-import Foundation
+import EventKit
+
+protocol CalendarManaging {
+    func create(eventModel: WishEventModel) -> Bool
+}
 
 struct WishEventModel: Codable {
-    var title: String = "Title"
-    var description: String = "Description"
-    var startDate: String
-    var endDate: String
+    var title: String
+    var description: String
+    var startDate: Date
+    var endDate: Date
 }

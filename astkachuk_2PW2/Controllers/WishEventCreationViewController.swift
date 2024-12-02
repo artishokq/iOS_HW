@@ -15,6 +15,7 @@ final class WishEventCreationViewController: UIViewController {
     // MARK: - Properties
     private var wishEventCreationView = WishEventCreationView()
     weak var delegate: WishEventCreationDelegate?
+    private let calendarManager = CalendarManager()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -42,26 +43,36 @@ final class WishEventCreationViewController: UIViewController {
     private func addEventWishButtonPressed() {
         let title = wishEventCreationView.getTitleTextField().text ?? ""
         let description = wishEventCreationView.getDescriptionTextField().text ?? ""
-
+        let startDate = wishEventCreationView.getStartDatePicker().date
+        let endDate = wishEventCreationView.getEndDatePicker().date
+        
         guard !title.isEmpty else {
             // Показать сообщение, что название обязательно
             showAlert(message: "Название события обязательно!")
             return
         }
-
-        let startDate = formatDate(wishEventCreationView.getStartDatePicker().date)
-        let endDate = formatDate(wishEventCreationView.getEndDatePicker().date)
+        
         let newEvent = WishEventModel(title: title, description: description, startDate: startDate, endDate: endDate)
-        delegate?.didAddNewEvent(newEvent)
-        dismiss(animated: true, completion: nil)
+        
+        // Сохраняем событие в календарь
+        let isSaved = calendarManager.create(eventModel: newEvent)
+        
+        if isSaved {
+            // Если событие сохранено, передаем его делегату
+            delegate?.didAddNewEvent(newEvent)
+            dismiss(animated: true, completion: nil)
+        } else {
+            // Если не удалось сохранить событие, показываем ошибку
+            showAlert(message: "Не удалось сохранить событие.")
+        }
     }
-
+    
     private func showAlert(message: String) {
         let alertController = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
-
+        
         // Устанавливаем красную рамку на поле названия, если оно пустое
         let titleField = wishEventCreationView.getTitleTextField()
         if titleField.text?.isEmpty == true {
@@ -69,7 +80,7 @@ final class WishEventCreationViewController: UIViewController {
             titleField.layer.borderWidth = 1.0
         }
     }
-
+    
     @objc
     private func titleFieldDidChange() {
         let titleField = wishEventCreationView.getTitleTextField()
@@ -77,12 +88,5 @@ final class WishEventCreationViewController: UIViewController {
             titleField.layer.borderColor = UIColor.clear.cgColor
             titleField.layer.borderWidth = 0.0
         }
-    }
-
-    private func formatDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let formattedDate = dateFormatter.string(from: date)
-        return formattedDate
     }
 }

@@ -148,6 +148,7 @@
 				DEVELOPMENT_TEAM = X5P4ZAH8RB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = astkachuk_2PW2/Helpers/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "$(EXECUTABLE_NAME)";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -179,6 +180,7 @@
 				DEVELOPMENT_TEAM = X5P4ZAH8RB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = astkachuk_2PW2/Helpers/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "$(EXECUTABLE_NAME)";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

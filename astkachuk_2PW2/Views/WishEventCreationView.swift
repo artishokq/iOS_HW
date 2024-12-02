@@ -30,7 +30,7 @@ class WishEventCreationView: UIView {
         static let startDateLabelTextColor: UIColor = .white
         static let startDatePickerColor: UIColor = .white
         static let startDateLabelFont: UIFont = .systemFont(ofSize: 20)
-        static let startDatePickerMode: UIDatePicker.Mode = .date
+        static let startDatePickerMode: UIDatePicker.Mode = .dateAndTime
         static let startDAtePickerStyle: UIDatePickerStyle = .compact
         static let startDatePickerTopPadding: CGFloat = 20
         static let startDateLabelTopPadding: CGFloat = 20
@@ -41,7 +41,7 @@ class WishEventCreationView: UIView {
         static let endDateLabelTextColor: UIColor = .white
         static let endDatePickerColor: UIColor = .white
         static let endDateLabelFont: UIFont = .systemFont(ofSize: 20)
-        static let endDatePickerMode: UIDatePicker.Mode = .date
+        static let endDatePickerMode: UIDatePicker.Mode = .dateAndTime
         static let endDAtePickerStyle: UIDatePickerStyle = .compact
         static let endDatePickerTopPadding: CGFloat = 20
         static let endDateLabelTopPadding: CGFloat = 22

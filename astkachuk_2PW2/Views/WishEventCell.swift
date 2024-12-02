@@ -20,10 +20,12 @@ final class WishEventCell: UICollectionViewCell {
         static let titleTop: CGFloat = 12
         static let titleFont: UIFont = .systemFont(ofSize: 20.0)
         static let titleLeading: CGFloat = 12
-    
+        
         static let descriptionTop: CGFloat = 5
         static let descriptionFont: UIFont = .systemFont(ofSize: 15.0)
         static let descriptionLeading: CGFloat = 12
+        static let descriptionRight: CGFloat = 12
+        static let descriptionBottom: CGFloat = 12
         
         static let startDateFont: UIFont = .systemFont(ofSize: 12.0)
         static let startDateRight: CGFloat = 12
@@ -31,7 +33,7 @@ final class WishEventCell: UICollectionViewCell {
         
         static let endDateFont: UIFont = .systemFont(ofSize: 12.0)
         static let endDateRight: CGFloat = 12
-        static let endDateTop: CGFloat = startDateTop + startDateFont.lineHeight + 2
+        static let endDateTop: CGFloat = 4
     }
     
     // MARK: - Properties
@@ -75,6 +77,7 @@ final class WishEventCell: UICollectionViewCell {
     
     private func configureTitleLabel() {
         addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = Constants.whiteColor
         titleLabel.pinTop(to: wrapView, Constants.titleTop)
         titleLabel.font = Constants.titleFont
@@ -83,14 +86,22 @@ final class WishEventCell: UICollectionViewCell {
     
     private func configureDescriptionLabel() {
         addSubview(descriptionLabel)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.textColor = Constants.whiteColor
-        descriptionLabel.pinTop(to: titleLabel.bottomAnchor, Constants.descriptionTop)
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.lineBreakMode = .byWordWrapping
+        
         descriptionLabel.font = Constants.descriptionFont
         descriptionLabel.pinLeft(to: wrapView, Constants.descriptionLeading)
+        descriptionLabel.pinRight(to: wrapView, Constants.descriptionRight)
+        descriptionLabel.pinTop(to: titleLabel.bottomAnchor, Constants.descriptionTop)
+        descriptionLabel.pinBottom(to: wrapView, Constants.descriptionBottom)
+        descriptionLabel.preferredMaxLayoutWidth = frame.width - Constants.offset * 2 - Constants.descriptionLeading * 2
     }
     
     private func configureStartDateLabel() {
         addSubview(startDateLabel)
+        startDateLabel.translatesAutoresizingMaskIntoConstraints = false
         startDateLabel.textColor = Constants.whiteColor
         startDateLabel.font = Constants.startDateFont
         startDateLabel.textAlignment = .center
@@ -100,10 +111,11 @@ final class WishEventCell: UICollectionViewCell {
     
     private func configureEndDateLabel() {
         addSubview(endDateLabel)
+        endDateLabel.translatesAutoresizingMaskIntoConstraints = false
         endDateLabel.textColor = Constants.whiteColor
         endDateLabel.font = Constants.endDateFont
         endDateLabel.textAlignment = .center
-        endDateLabel.pinTop(to: wrapView, Constants.endDateTop)
+        endDateLabel.pinTop(to: startDateLabel.bottomAnchor, Constants.endDateTop)
         endDateLabel.pinRight(to: wrapView, Constants.endDateRight)
     }
 }

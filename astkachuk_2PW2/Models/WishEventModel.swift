@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct WishEventModel {
-    var title: String
-    var description: String
+struct WishEventModel: Codable {
+    var title: String = "Title"
+    var description: String = "Description"
     var startDate: String
     var endDate: String
 }

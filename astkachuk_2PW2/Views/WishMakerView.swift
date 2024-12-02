@@ -36,17 +36,17 @@ final class WishMakerView: UIView {
         static let hexColorButtonText: String = "Введите Hex-код"
         static let hideSlidersButtonText: String = "Скрыть слайдеры"
         
-        static let titleTopPadding: Double = 30.0
+        static let titleTopPadding: Double = 0.0
         static let titleLeadingPadding: Double = 20.0
         static let titleTextColor: UIColor = .white
-        static let titleFontSize: CGFloat = 32
+        static let titleFontSize: CGFloat = 28
         static let titleText: String = "Wish Maker"
         
-        static let descriptionTopPadding: Double = 20.0
+        static let descriptionTopPadding: Double = 10.0
         static let descriptionLeadingPadding: Double = 20.0
         static let descriptionTrailingPadding: Double = 20.0
         static let descriptionTextColor: UIColor = .white
-        static let descriptionFontSize: CGFloat = 20
+        static let descriptionFontSize: CGFloat = 15
         static let descriptionText: String = "Можно изменить цвет фона используя слайдеры, кнопку рандомного цвета или ввести HEX-код. Также возможно скрыть слайдеры."
     }
     
@@ -109,6 +109,7 @@ final class WishMakerView: UIView {
     }
     
     private func configureDescription() {
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.text = Constants.descriptionText
         descriptionView.textColor = Constants.descriptionTextColor
         descriptionView.font = UIFont.systemFont(ofSize: Constants.descriptionFontSize)

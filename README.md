@@ -1,3 +1,5 @@
+Pet-проект по НИСу iOS, ВШЭ - ФКН - ПИ - 2й курс
+
 ОТВЕТЫ НА ВОПРОСЫ.
 
 1. Question: What does the code on lines 25 and 29 do?
